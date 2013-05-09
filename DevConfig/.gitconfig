@@ -1,5 +1,6 @@
 [user]
 	name = Shay Weiss
 	email = shay.weiss@algowiz.com
-[alias]
-	ci = commit
+[github]
+    user = Shaywei
+    token = aeafbeb055a0635e002d2e41b48f6b6a

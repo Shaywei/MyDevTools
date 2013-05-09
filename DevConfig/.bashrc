@@ -18,10 +18,6 @@ alias gpull="git pull -v --progress origin"
 
 alias gdb="git branch -d"
 
-alias gaspyker="git add c:/dev/spyker/spyker/"
-alias gatests="git add c:/dev/spyker/spyker/tests/"
-alias garoot="git add c:/dev/spyker/"
-alias gacortex="git add c:/dev/spyker/cortext"
+alias gaa="git add ."
 alias gai="git add -i"
-
 alias gunadd="git rm --cached"
