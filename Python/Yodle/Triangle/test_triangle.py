@@ -1,7 +1,7 @@
 import os
 from unittest import TestCase
+from Python.Yodle.Triangle import triangle
 
-import triangle
 
 class TestTriangle(TestCase):
     def test_triangle_example(self):

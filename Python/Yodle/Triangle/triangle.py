@@ -1,9 +1,8 @@
-__author__ = 'lost_dm'
+__author__ = 'Shay Weiss'
 
 def max_path(path_to_file):
     '''
-        solves http://www.yodlecareers.com/puzzles/triangle.html
-        Note that problem is undefined in case where there are adjecent identical numbers:
+        Note that problem is undefined in case where there are adjacent identical numbers:
         0
         1 1
         3 0 2
