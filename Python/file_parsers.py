@@ -38,3 +38,38 @@ def dictionary_list_file_parser(path_to_file, int_keys, float_keys):
             line = line.strip()
             result.append(parse_line_to_dict(line))
     return result
+
+def list_of_lists_file_parser(path_to_file, elem_type=None):
+    '''Takes a file where each line is of the form:
+
+        elem11 elem12 ..
+        elem21 elem22 elem23 ...
+
+        and returns a list of lists parsed from each line.
+        [[elem11, elem12, ..], [elem21, elem22, elem23, ..] .. ]
+
+        if elem_type is 'INT' will cast each element into int
+        if elem_type is 'FLOAT' will cast each element into float
+        if elem_type is 'BOOL' will cast each element into float
+
+        otherwise, elemets will be strings
+    '''
+    def parse_line_to_list(line):
+        try:
+            line_list = line.split(' ')
+            if elem_type == 'INT':
+                line_list = [int(e) for e in line_list]
+            elif elem_type == 'FLOAT':
+                line_list = [float(e) for e in line_list]
+            return line_list
+        except Exception as e:
+            print "exception in line " + str(i) + "\n: " + line
+            print e
+
+    result = []
+    with open(path_to_file, 'r') as target_file:
+        for i, line in enumerate(target_file):
+            line = line.strip()
+            result.append(parse_line_to_list(line))
+    return result
+
