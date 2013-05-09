@@ -1,0 +1,5 @@
+[user]
+	name = Shay Weiss
+	email = shay.weiss@algowiz.com
+[alias]
+	ci = commit
