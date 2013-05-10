@@ -2,12 +2,13 @@ __author__ = 'Shay Weiss'
 
 def max_path(path_to_file):
     '''
-        Note that problem is undefined in case where there are adjacent identical numbers:
+        Note that problem not well defined in case where there are adjacent identical numbers:
         0
         1 1
         3 0 2
 
         possible output can be either 4 or 3 depending on which 1 was chosen in second row.
+        My solution will always pick the number to right (with the higher index), so in my solution, we'll get a 3.
     '''
 
     sum = index = 0
