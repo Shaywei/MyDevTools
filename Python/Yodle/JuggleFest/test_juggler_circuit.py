@@ -29,10 +29,10 @@ class TestJugglerCircuit(unittest.TestCase):
         circuits.update(self.circuit_under_test2.to_dict())
 
         # Act
-        actual = self.juggler_under_test.calculate_match_to_circuits(circuits)
+        actual = self.juggler_under_test.calculate_representation_for_output(circuits)
 
         # Assert
-        self.assertEqual({'C1': 60, 'C0': 48}, self.juggler_under_test.calculate_match_to_circuits())
+        self.assertEqual('J0 C0:48 C1:60,', self.juggler_under_test.representation_for_output)
 
 if __name__ == '__main__':
     unittest.main()

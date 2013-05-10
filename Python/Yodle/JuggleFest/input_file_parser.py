@@ -38,8 +38,9 @@ def parse_input_file(path_to_file):
 
     # Some input validation
     assert len(jugglers) % len(circuits) == 0
-    for juggler in jugglers:
-        assert len(set(juggler.circuit_preferences)) == len(circuits)
+    #for juggler in jugglers:
+    #    assert len(set(juggler.circuit_preferences)) == len(circuits), 'each juggler expected: ' + str(len(circuits)) + ' but got: ' + str(len(set(juggler.circuit_preferences))) + ' for juggler: ' + juggler.name
+
 
     return circuits, jugglers
 

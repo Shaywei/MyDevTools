@@ -12,13 +12,17 @@ import input_file_parser
 
 circuits, jugglers = input_file_parser.parse_input_file("juggle_fest_example.txt")
 
-jugglers_prefers = {}
-for juggler in jugglers:
-    jugglers_prefers[juggler.name] = juggler.circuit_preferences
+def jugglers_to_jugglers_prefers(jugglers):
+    jugglers_prefers = {}
+    for juggler in jugglers:
+        jugglers_prefers[juggler.name] = juggler.circuit_preferences
+    return jugglers_prefers
 
-circuits_prefer = {}
-for circuit in circuits:
-    circuits_prefer[circuit.name] = circuit.calc_preference_list(jugglers)
+def circuits_to_circuits_prefers(circuits, jugglers):
+    circuits_prefer = {}
+    for circuit in circuits:
+        circuits_prefer[circuit.name] = circuit.calc_preference_list(jugglers)
+    return circuits_prefer
 
 guy_prefers_demo = {
  'abe':  ['abi', 'eve', 'cath', 'ivy', 'jan', 'dee', 'fay', 'bea', 'hope', 'gay'],
@@ -121,13 +125,15 @@ def matchmaker(guy_prefers, gal_prefers):
     return engaged
 
 
-print('\nEngagements:')
+'''print('\nEngagements:')
 engaged = matchmaker(jugglers_prefers, circuits_prefer)
 
 print('\nCouples:')
 print('  ' + ',\n  '.join('%s is engaged to %s' % couple
                           for couple in sorted(engaged.items())))
-print()
+print()'''
+
+
 '''print('Engagement stability check PASSED'
       if check(engaged) else 'Engagement stability check FAILED')
 
