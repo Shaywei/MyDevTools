@@ -24,7 +24,7 @@ def parse_juggler(line_as_list):
 def parse_input_file(path_to_file):
     circuits = []
     jugglers = []
-    
+
     with open(path_to_file, 'r') as input_file:
         for i, line in enumerate(input_file):
             try:
@@ -35,6 +35,11 @@ def parse_input_file(path_to_file):
                 else: raise Exception("Unrecognized line type, not a Circuit/Juggler")
             except Exception as e:
                 print "exception: '" + str(e) + "' in line ", i, ":\n " + line
+
+    # Some input validation
+    assert len(jugglers) % len(circuits) == 0
+    for juggler in jugglers:
+        assert len(set(juggler.circuit_preferences)) == len(circuits)
 
     return circuits, jugglers
 
