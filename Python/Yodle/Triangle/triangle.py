@@ -10,7 +10,6 @@ def max_path(path_to_file):
         possible output can be either 4 or 3 depending on which 1 was chosen in second row.
         My solution will always pick the number to right (with the higher index), so in my solution, we'll get a 3.
     '''
-
     sum = index = 0
     with open(path_to_file, 'r') as target_file:
         for i, line in enumerate(target_file):
