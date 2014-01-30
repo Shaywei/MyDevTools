@@ -74,11 +74,14 @@ def create_backup(src, dest=None, postfix=None):
         dest = os.path.join('%s.%s' % (src, postfix))
 
     if os.path.isfile(src):
-        shutil.copyfile(file_path, dest)
+        shutil.copyfile(src, dest)
     elif os.path.isdir(src):
         if os.path.exists(dest):
             shutil.rmtree(dest)        
         shutil.copytree(src, dest)
+
+def read_properties(src):
+    return parse_properties_from_multiline_string(read_file(src))
 
 # until string_utils
 def prefix_replace_pattern_postfix(s, prefix=None, pattern=None, replacement=None, postfix=None):
@@ -88,6 +91,31 @@ def prefix_replace_pattern_postfix(s, prefix=None, pattern=None, replacement=Non
         s = s if postfix is None else (s + postfix)
         return s
 
+def parse_properties_from_multiline_string(s):
+    propeties = dict()
+    for line in s.splitlines():
+        key, val = line.strip().split('=', 2)
+        propeties[key] = val
+    return propeties
+
+def find_replace_in_file(file_path, pattern, repl, count=0, backup=True):
+    content = read_file(file_path)
+    content = re.sub(pattern, repl, content, count=count)
+    if backup:
+        create_backup(file_path)
+    write_file(file_path, content)
+
+# until xml_utils:
+
+def get_parent_gav(pom):
+    q = etree.parse(pom)
+    parent = q.find('.//{http://maven.apache.org/POM/4.0.0}parent')
+    if parent is not None:
+        gav = dict()
+        for child in list(parent):
+            gav[child.tag[35:]] = child.text    
+        return gav
+        
 # until time_utils
 def now_strf(format="%Y-%m-%d_%H.%M.%S"):
     from time import gmtime, strftime   
