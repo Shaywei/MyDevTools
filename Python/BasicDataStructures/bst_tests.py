@@ -1,5 +1,6 @@
 import unittest
 import itertools
+from functools import partial
 
 from bst import BST
 
@@ -141,20 +142,29 @@ class TestBST(unittest.TestCase):
             self.assertEqual(0, _factory(perm).min().item)
             self.assertEqual(4, _factory(perm).max().item)
 
-            
+    def test_inorder(self):
+        b = _factory([2,1,3])
+
+        actual = b.inorder()
+        
+        self.assertEqual([1,2,3], actual)
+
+    def test_preorder(self):
+        b = _factory([2,1,3])
+
+        actual = b.preorder()
+        
+        self.assertEqual([2,1,3], actual)
+
+    def test_posorder(self):
+        b = _factory([2,1,3])
+
+        actual = b.postorder()
+        
+        self.assertEqual([1,3,2], actual)
+
 
     '''
-    def test_traverse(self):
-        # Arrange
-        b = _factory([1,2,3,4,5])
-
-        # Act
-        b.delete_list(l, 3)
-
-        # Assert
-        self.assertEqual(_factory([1,2,4,5]), l)
-
-
     def test_delete_item(self):
         # Arrange
         b = _factory([1,2,3,4,5])
@@ -172,16 +182,16 @@ class TestBST(unittest.TestCase):
         # Act + Assert
         with self.assertRaises(ValueError):
             b.delete_list(l, 6)
-
+        '''
     def test__repr__(self):
         # Arrange
-        b = _factory([1,2,3])
+        b = _factory([1,3,2])
 
         # Act + Assert
-        self.assertEqual('BST(item=1, _next=BST(item=2, _next=BST(item=3, _next=None)))', b.__repr__())
+        self.assertEqual('BST(item=1, left=None, right=BST(item=3, left=BST(item=2, left=None, right=None), right=None))', b.__repr__())
 
-    '''
 
 if __name__ == '__main__':
     unittest.main()
+
 

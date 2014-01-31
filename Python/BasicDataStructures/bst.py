@@ -26,7 +26,7 @@ class BST(object):
         if where_to_search_next is None:
             return None
         return where_to_search_next.search(item)
-        
+
     def min(self):
         m = self
         while m.left is not None:
@@ -42,8 +42,38 @@ class BST(object):
     def delete(self, item):
         pass
 
-    def traverse(self):
-        pass
+    def inorder(self, res=[]):
+        if self.left is not None:
+            self.left.inorder(res)
+
+        res.append(self.item)
+
+        if self.right is not None:
+            self.right.inorder(res)
+
+        return res
+
+    def preorder(self, res=[]):
+        res.append(self.item)
+
+        if self.left is not None:
+            self.left.preorder(res)
+
+        if self.right is not None:
+            self.right.preorder(res)
+
+        return res
+
+    def postorder(self, res=[]):
+        if self.left is not None:
+            self.left.preorder(res)
+
+        if self.right is not None:
+            self.right.preorder(res)
+
+        res.append(self.item)
+
+        return res
 
     def __eq__(self, other):
         if self.item != other.item:
