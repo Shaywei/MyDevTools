@@ -1,4 +1,5 @@
 import unittest
+import itertools
 
 from bst import BST
 
@@ -98,15 +99,7 @@ class TestBST(unittest.TestCase):
         self._check_node(b.left, 2, 1, None)
         self._check_node(b.left.left, 1, None, None)
 
-    '''
-    def test_insert_illegal_type_raises_ValueError(self):
-        # Arrange
-        b = BST(1)
-
-        # Act + Assert
-        with self.assertRaises(ValueError):
-            b.insert('2')
-    '''
+    # Now that we tested insert(), we can use _factory!
 
     def test__eq__when_equal(self):
         # Arrange
@@ -142,6 +135,14 @@ class TestBST(unittest.TestCase):
 
         # Act + Assert
         self.assertIsNone(b.search(6))
+
+    def test_min_max(self):
+        for perm in itertools.permutations(range(5)):
+            self.assertEqual(0, _factory(perm).min().item)
+            self.assertEqual(4, _factory(perm).max().item)
+
+            
+
     '''
     def test_traverse(self):
         # Arrange

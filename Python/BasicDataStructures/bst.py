@@ -22,15 +22,22 @@ class BST(object):
         if self.item == item:
             return self
 
-        elif item < self.item:
-            if self.left is None:
-                return None
-            return self.left.search(item)
-        else:
-            if self.right is None:
-                return None
-            return self.right.search(item)
+        where_to_search_next = self.left if item < self.item else self.right
+        if where_to_search_next is None:
+            return None
+        return where_to_search_next.search(item)
+        
+    def min(self):
+        m = self
+        while m.left is not None:
+            m = m.left
+        return m
 
+    def max(self):
+        m = self
+        while m.right is not None:
+            m = m.right
+        return m        
 
     def delete(self, item):
         pass
