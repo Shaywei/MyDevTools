@@ -144,45 +144,41 @@ class TestBST(unittest.TestCase):
 
     def test_inorder(self):
         b = _factory([2,1,3])
-
-        actual = b.inorder()
-        
-        self.assertEqual([1,2,3], actual)
+        self.assertEqual([1,2,3], b.inorder())
 
     def test_preorder(self):
-        b = _factory([2,1,3])
-
-        actual = b.preorder()
-        
-        self.assertEqual([2,1,3], actual)
+        b = _factory([2,1,3])       
+        self.assertEqual([2,1,3], b.preorder())
 
     def test_posorder(self):
         b = _factory([2,1,3])
+        self.assertEqual([1,3,2], b.postorder())
 
-        actual = b.postorder()
-        
-        self.assertEqual([1,3,2], actual)
+    def test_search_parent(self):
+        b = _factory([2,1,7,8,4,3,6,5])
+        self.assertEqual((_factory([4,3,6,5]), 'right'), b._search_parent(6))
+        self.assertEqual((_factory([4,3,6,5]), 'left'), b._search_parent(3))
 
+    def test_delete_delete_childess_node(self):
+        b = _factory([2,1,7,8,4,3,6,5])
+        self.assertEqual(_factory([2,1,7,8,4,6,5]), b.delete(3))
+    
+    def test_delete_delete_node_with_one_child_left(self):
+        b = _factory([2,1,7,8,4,3,6,5])
+        self.assertEqual(_factory([2,1,7,8,4,3,5]), b.delete(6))
 
-    '''
-    def test_delete_item(self):
-        # Arrange
-        b = _factory([1,2,3,4,5])
+    def test_delete_delete_node_with_one_child_right(self):
+        b = _factory([2,1,7,8,4,3,6,5,9])
+        self.assertEqual(_factory([2,1,7,4,3,6,5,9]), b.delete(8))
 
-        # Act
-        b.delete_list(l, 3)
+    def test_delete_delete_node_with_two_children(self):
+        b = _factory([2,1,7,8,4,3,6,5])
+        self.assertEqual(_factory([2,1,7,8,5,3,6]), b.delete(4))
 
-        # Assert
-        self.assertEqual(_factory([1,2,4,5]), l)
+    def test_delete_delete_node_with_two_children_min_with_right_subtree(self):
+        b = _factory([2,1,7,8,4,3,6,5,5.8,5.7,5.9])
+        self.assertEqual(_factory([2,1,7,8,5,3,6,5.8,5.7,5.9]), b.delete(4))
 
-    def test_delete_item_that_doesnt_exist_raise_value_error(self):
-        # Arrange
-        b = _factory([1,2,3,4,5])
-
-        # Act + Assert
-        with self.assertRaises(ValueError):
-            b.delete_list(l, 6)
-        '''
     def test__repr__(self):
         # Arrange
         b = _factory([1,3,2])
