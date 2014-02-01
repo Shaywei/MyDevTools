@@ -156,8 +156,8 @@ class TestBST(unittest.TestCase):
 
     def test_search_parent(self):
         b = _factory([2,1,7,8,4,3,6,5])
-        self.assertEqual((_factory([4,3,6,5]), 'right'), b._search_parent(6))
-        self.assertEqual((_factory([4,3,6,5]), 'left'), b._search_parent(3))
+        self.assertEqual(_factory([4,3,6,5]), b._search_parent(6))
+        self.assertEqual(_factory([4,3,6,5]), b._search_parent(3))
 
     def test_delete_delete_childess_node(self):
         b = _factory([2,1,7,8,4,3,6,5])

@@ -28,12 +28,9 @@ class BST(object):
         return where_to_search_next.search(item)
 
     def _search_parent(self, item):
-        if (self.left and self.left.item == item):
-            return self, 'left'
+        if (self.left and self.left.item == item) or (self.right and self.right.item == item):
+            return self
         
-        if (self.right and self.right.item == item):
-            return self, 'right'
-
         where_to_search_next = self.left if item < self.item else self.right
         if where_to_search_next is None:
             return None
@@ -56,11 +53,14 @@ class BST(object):
         if node_to_be_deleted is None:
             raise ValueError('Cant delete value that does not exist: %s' % (item))
         
-        parent_of_node_to_be_deleted, side = self._search_parent(item)
+        parent_of_node_to_be_deleted = self._search_parent(item)
 
         # Case 1 - childless 
         if node_to_be_deleted.left is None and node_to_be_deleted.right is None:
-            BST._cut_node_subtree(parent_of_node_to_be_deleted, side)
+            if item < parent_of_node_to_be_deleted.item:
+                parent_of_node_to_be_deleted.left = None
+            else:
+                parent_of_node_to_be_deleted.right = None
 
         # Case 2 - one child
         elif node_to_be_deleted.left is None and node_to_be_deleted.right is not None:
@@ -73,7 +73,7 @@ class BST(object):
 
         else:
             left_most_child_in_right_subtree = node_to_be_deleted.right.min()
-            parent_of_left_most_child_in_right_subtree, side = self._search_parent(left_most_child_in_right_subtree.item)
+            parent_of_left_most_child_in_right_subtree = self._search_parent(left_most_child_in_right_subtree.item)
 
             node_to_be_deleted.item = left_most_child_in_right_subtree.item
             parent_of_left_most_child_in_right_subtree.left = left_most_child_in_right_subtree.right
@@ -124,13 +124,6 @@ class BST(object):
 
     def __repr__(self):
         return "BST(item=%r, left=%r, right=%r)" % (self.item, self.left, self.right)
-
-    @staticmethod
-    def _cut_node_subtree(node, side):
-        if side == 'left':
-            node.left = None
-        else:
-            node.right = None
 
     @staticmethod
     def _connect_nodes(parent_node, child_node):
