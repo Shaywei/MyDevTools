@@ -20,7 +20,7 @@ class TestLinkedList(unittest.TestCase):
 
         # Assert
         self.assertEqual(1, l.item)
-        self.assertEqual(None, l.next())
+        self.assertEqual(None, l.next_l)
 
     def test_insert(self):
         # Arrange
@@ -32,9 +32,9 @@ class TestLinkedList(unittest.TestCase):
 
         # Assert
         self.assertEqual(1, l.item)
-        self.assertEqual(2, l.next().item)
-        self.assertEqual(3, l.next().next().item)
-        self.assertEqual(None, l.next().next().next())
+        self.assertEqual(2, l.next_l.item)
+        self.assertEqual(3, l.next_l.next_l.item)
+        self.assertEqual(None, l.next_l.next_l.next_l)
 
     def test_insert_illegal_type_raises_ValueError(self):
         # Arrange
@@ -114,6 +114,19 @@ class TestLinkedList(unittest.TestCase):
         with self.assertRaises(ValueError):
             l.delete_list(l, 6)
 
+    def test_to_list(self):
+        l = _factory([1,2,3,4,5])
+        self.assertEqual([1,2,3,4,5], l.to_list())
+
+    def test_iteration(self):
+        # Arrange
+        l = _factory([1,2,3,4,5])
+
+        # Act + Assert				
+
+        for item, i in zip(l, range(1,6)):
+            self.assertEqual(item, i)
+
     def test__str__(self):
         # Arrange
         l = _factory([1,2,3,4,5])
@@ -121,12 +134,19 @@ class TestLinkedList(unittest.TestCase):
         # Act + Assert
         self.assertEqual('1->2->3->4->5', str(l))
 
-    def test__str__(self):
+    def test__len__(self):
+        # Arrange
+        l = _factory([1,2,3,4,5])
+
+        # Act + Assert
+        self.assertEqual(5, len(l))
+
+    def test__repr__(self):
         # Arrange
         l = _factory([1,2,3])
 
         # Act + Assert
-        self.assertEqual('LinkedList(item=1, _next=LinkedList(item=2, _next=LinkedList(item=3, _next=None)))', l.__repr__())
+        self.assertEqual('LinkedList(item=1, next_l=LinkedList(item=2, next_l=LinkedList(item=3, next_l=None)))', l.__repr__())
 
 
 if __name__ == '__main__':
