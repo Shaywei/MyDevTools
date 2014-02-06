@@ -61,3 +61,9 @@ class HashTable(object):
 
     def __iter__(self):
         return iter(itertools.chain.from_iterable([x for x in self.arr if x is not None]))
+
+    def __getitem__(self, key):
+        return self.search(key)
+
+    def __setitem__(self, key, value):
+        return self.insert(key, value)

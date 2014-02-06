@@ -99,6 +99,16 @@ class TestHashTable(unittest.TestCase):
 
         # Act + Assert
         self.assertEqual(value, ht.search(key))
+
+    def test_search_and_insert_are_subscriptable(self):
+        # Arrange
+        key = 'key'
+        value = 'value'
+        ht = HashTable()        
+        ht[key] = value
+
+        # Act + Assert
+        self.assertEqual(value, ht[key])
     
     def test_search_resolution_chaning_without_collision(self):
         # Arrange
