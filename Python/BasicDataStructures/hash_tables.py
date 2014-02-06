@@ -1,3 +1,5 @@
+import itertools
+
 class HashTable(object):
     
     RESOLUTION_OVERWRITE = 0
@@ -53,3 +55,5 @@ class HashTable(object):
             else:
                 self.arr[i] = self.arr[i].delete((key, self.arr[i].search_by_key(key)))
 
+    def __iter__(self):
+        return iter(itertools.chain.from_iterable([x for x in self.arr if x is not None]))

@@ -4,14 +4,6 @@ from functools import partial
 
 from hash_tables import HashTable
 from linked_lists import LinkedList
-def _factory(l):
-    '''_b = BST(l[0])
-    for item in l[1:]:
-        _b.insert(item)
-    return _b'''
-    pass
-
-
 
 class TestHashTable(unittest.TestCase):
     
@@ -164,7 +156,7 @@ class TestHashTable(unittest.TestCase):
         value = 'value'
         key2 = 'key2'
         value2 = 'value2'
-        ht = HashTable(container_type=LinkedList, resolution=HashTable.RESOLUTION_CHAINING, hash_function=lambda x: 1)
+        ht = HashTable()
         ht.insert(key, value)
         ht.insert(key2, value2)
 
@@ -173,6 +165,32 @@ class TestHashTable(unittest.TestCase):
 
         # Assert
         self.assertIsNone(ht.search(key))
+
+    def test_iteration_resolution_overwrite(self):
+        # Arrange
+        ht = HashTable()
+        ht.insert('key', 'value')
+        ht.insert('key2', 'value2')
+        ht.hash_function = lambda x: 2
+        ht.insert('key3', 'value3')
+
+        # Act + Assert
+        for (expected_key, expected_val), (actual_key, actual_val) in zip((('key', 'value'), ('key2', 'value2'), ('key3', 'value3')), ht):
+            self.assertEqual(expected_key, actual_key)
+            self.assertEqual(expected_val, actual_val)
+
+    def test_iteration_resolution_chaining(self):
+        # Arrange
+        ht = HashTable(container_type=LinkedList, resolution=HashTable.RESOLUTION_CHAINING, hash_function=lambda x: 1)
+        ht.insert('key', 'value')
+        ht.insert('key2', 'value2')
+        ht.hash_function = lambda x: 2
+        ht.insert('key3', 'value3')
+
+        # Act + Assert
+        for (expected_key, expected_val), (actual_key, actual_val) in zip((('key', 'value'), ('key2', 'value2'), ('key3', 'value3')), ht):
+            self.assertEqual(expected_key, actual_key)
+            self.assertEqual(expected_val, actual_val)
 
 if __name__ == '__main__':
     unittest.main()
