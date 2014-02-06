@@ -45,7 +45,7 @@ class TestHashTable(unittest.TestCase):
         ht.insert(key, value)
 
         # Assert
-        self.assertEqual(value, ht.arr[i])
+        self.assertEqual(HashTable.Bucket((key,value)), ht.arr[i])
 
     def test_insert_resolution_chaning_no_collision(self):
         # Arrange
@@ -73,7 +73,7 @@ class TestHashTable(unittest.TestCase):
         ht.insert(key, value2)
 
         # Assert
-        self.assertEqual(value2, ht.arr[i])
+        self.assertEqual(HashTable.Bucket((key,value2)), ht.arr[i])
 
     def test_insert_resolution_chaning_with_collision_chains(self):
         # Arrange
@@ -89,7 +89,7 @@ class TestHashTable(unittest.TestCase):
 
         # Assert
         self.assertEqual(LinkedList((key,value), next_l=LinkedList((key,value2))), ht.arr[i])
-
+    
     def test_search_resolution_overwrite(self):
         # Arrange
         key = 'key'
@@ -99,7 +99,7 @@ class TestHashTable(unittest.TestCase):
 
         # Act + Assert
         self.assertEqual(value, ht.search(key))
-
+    
     def test_search_resolution_chaning_without_collision(self):
         # Arrange
         key = 'key'
@@ -175,7 +175,7 @@ class TestHashTable(unittest.TestCase):
         ht.insert('key3', 'value3')
 
         # Act + Assert
-        for (expected_key, expected_val), (actual_key, actual_val) in zip((('key', 'value'), ('key2', 'value2'), ('key3', 'value3')), ht):
+        for (expected_key, expected_val), (actual_key, actual_val) in zip((('key3', 'value3'), ('key2', 'value2'), ('key', 'value')), ht):
             self.assertEqual(expected_key, actual_key)
             self.assertEqual(expected_val, actual_val)
 
@@ -191,7 +191,7 @@ class TestHashTable(unittest.TestCase):
         for (expected_key, expected_val), (actual_key, actual_val) in zip((('key', 'value'), ('key2', 'value2'), ('key3', 'value3')), ht):
             self.assertEqual(expected_key, actual_key)
             self.assertEqual(expected_val, actual_val)
-
+    
 if __name__ == '__main__':
     unittest.main()
 
