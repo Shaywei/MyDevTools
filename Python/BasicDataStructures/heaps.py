@@ -1,11 +1,16 @@
-class LinkedList(object):
+import operator
+
+class Heap(object):
     __slots__ = ['_heap']
 
-    def __init__(self, comparator=<):
+    def __init__(self, comparator=operator.lt):
         self._heap = list()
+        slf.cmp = comparator
         
     def insert(self, item):
-        raise NotImplemented()
+        i = len(self._heap)
+        self._heap.append(item)
+        self._bubbleup(i)
 
     def search(self, item):
         raise NotImplemented()
@@ -17,10 +22,10 @@ class LinkedList(object):
     def search_by_key(self, key):
         raise NotImplemented()
 
-    def _bubbleup(self):
-        raise NotImplemented()
+    def _bubbleup(self, i):
+        if cmp(self._heap[i]
 
-    def _bubbledown(self):
+    def _bubbledown(self, i):
         raise NotImplemented()
 
     def extract_min(self):
