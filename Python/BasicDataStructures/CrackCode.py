@@ -18,7 +18,7 @@ COMMON ERRORS:
     Simple solution - define set_string to be the string with all the allowed character, for example: "abc..zA...Z0..9". for each character in input string.
                       check if the set string contains the character. If yes - remove it and if not it is not unique
 '''
-
+import random
 from itertools import chain
 
 def find_if_unique(s):
@@ -210,6 +210,23 @@ def is_palindrom(ll):
         second_half_of_ll = second_half_of_ll.next_l
     return True
 
+def sub_list_with_product_k(l, k):
+    import operator
+
+    p = [[l[0]]]
+    for i in xrange(1,len(l)):
+        if l[i] == k:
+            return [l[i]]
+        q = []
+        for j, x in enumerate(p[i-1]):
+            cum_prod = l[i] * x
+            if  cum_prod == k:
+                return l[i-j-1:i+1]
+            if abs(cum_prod) <= k and k % cum_prod == 0:
+                q.append(cum_prod)
+        
+        p.append([l[i]] + q)
+
 def count_twos(num):
     count = 0
     for i in range(2, num + 1):
@@ -222,6 +239,7 @@ def shay_num(n): # number of twos in 0 .. 9(n_times)
     if n==1:
         return 1
     return (9 * shay_num(n-1) + pow(10, n-1))
+
     
 def count_twos_using_shay_num(num, res_acc=0):
     print 'num, res_acc = ', num, res_acc
@@ -246,6 +264,24 @@ def count_twos_using_shay_num(num, res_acc=0):
         return res
     else:
         return count_twos_using_shay_num(num - pow(10, len(str(num-1))), res_acc + sn)
+
+# given an array of non-negative integers, find the series in which no two elements are negihbohrs and who's sum is maximal
+# Observation 1: an optimal solution for a given array will contain either the first or the second element.
+# An optimal solution containing element x = x + optimal solution of the subarray without x and its neighbors
+def find_max_donation(l):
+    if len(l) == 0:
+        return 0
+    elif len(l) == 1:
+        return l[0]
+    elif len(l) == 2:
+        return max(l[0], l[1])
+
+    # len is at least 3:
+    return max(l[0] + find_max_donation(l[2:]), l[1] + find_max_donation(l[3:]))
+
+# (10,12,8,15,12)
+# max(10 + f(8,15, 12), 12 + f(15,12)) = max(10 + max(8 + f(12), 15 + f([])), 27)
+
 
 if __name__ == '__main__':
     assert(True == find_if_unique('abcdef'))
@@ -304,3 +340,10 @@ if __name__ == '__main__':
     assert(755 == count_twos(2125))
 
     #assert(755 == count_twos_using_shay_num(2125))
+
+    
+    
+    #print sub_list_with_product_k([int(10000*random.random()+1) for x in xrange(10000)], 15)
+
+    assert(find_max_donation([5,9,5]) == 10)
+    assert(find_max_donation([10,12,8,15,12]) == 30)

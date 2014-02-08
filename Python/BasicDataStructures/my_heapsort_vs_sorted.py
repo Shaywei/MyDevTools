@@ -194,14 +194,11 @@ import string
 import cProfile
 
 
-from heaps import Heap
+from sorts import Heap
 
 from memory_profiler import profile
 
-def id_generator(size=6, chars=string.ascii_uppercase + string.digits + string.ascii_lowercase):
-    return ''.join(random.choice(chars) for x in range(size))        
-
-#@profile
+@profile
 def sort_by(heapsort=True):   
     l = [int(100000*random.random()) for x in xrange(100000)]
     if heapsort:
@@ -210,7 +207,7 @@ def sort_by(heapsort=True):
       sorted(l)
 
 def main():
-    #cProfile.run('sort_by()', sort='time')
+    cProfile.run('sort_by()', sort='time')
     cProfile.run('sort_by(False)', sort='time')
 
 if __name__ == '__main__':
