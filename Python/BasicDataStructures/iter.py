@@ -15,6 +15,6 @@ class Fib:
         return fib   
 
 if __name__ == '__main__':
-	f = Fib(4000)
-	for n in f:
-		print n
+    f = Fib(4000)
+    for n in f:
+        print n

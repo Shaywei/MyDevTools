@@ -70,36 +70,36 @@ import timeit
 from memory_profiler import profile
 
 class FooSlotsNewStyle(object):
-	__slots__ = ['x']
-	def __init__(self, n):
-		self.x = n
+    __slots__ = ['x']
+    def __init__(self, n):
+        self.x = n
 
 class FooNewStyle(object):
-	def __init__(self, n):
-		self.x = n
+    def __init__(self, n):
+        self.x = n
 
 class FooSlotsOldStyle():
-	__slots__ = ['x']
-	def __init__(self, n):
-		self.x = n
+    __slots__ = ['x']
+    def __init__(self, n):
+        self.x = n
 
 class FooOldStyle():
-	def __init__(self, n):
-		self.x = n
+    def __init__(self, n):
+        self.x = n
 
 @profile
 def Factory(class_name, num_of_isntances_to_create):
-	collection = []
-	for i in range (num_of_isntances_to_create):
-		exec('collection.append(%s(i))' % (class_name))
+    collection = []
+    for i in range (num_of_isntances_to_create):
+        exec('collection.append(%s(i))' % (class_name))
 
 def main():
-	print(timeit.timeit('Factory(\'FooSlotsNewStyle\', 1000000)', setup="from __main__ import Factory", number=1))
-	print(timeit.timeit('Factory(\'FooNewStyle\', 1000000)', setup="from __main__ import Factory", number=1))
-	print(timeit.timeit('Factory(\'FooSlotsOldStyle\', 1000000)', setup="from __main__ import Factory", number=1))
-	print(timeit.timeit('Factory(\'FooOldStyle\', 1000000)', setup="from __main__ import Factory", number=1))
+    print(timeit.timeit('Factory(\'FooSlotsNewStyle\', 1000000)', setup="from __main__ import Factory", number=1))
+    print(timeit.timeit('Factory(\'FooNewStyle\', 1000000)', setup="from __main__ import Factory", number=1))
+    print(timeit.timeit('Factory(\'FooSlotsOldStyle\', 1000000)', setup="from __main__ import Factory", number=1))
+    print(timeit.timeit('Factory(\'FooOldStyle\', 1000000)', setup="from __main__ import Factory", number=1))
 
 if __name__ == '__main__':
-	main()
+    main()
 
 

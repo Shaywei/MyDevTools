@@ -122,7 +122,7 @@ class TestLinkedList(unittest.TestCase):
         # Arrange
         l = _factory([1,2,3,4,5])
 
-        # Act + Assert				
+        # Act + Assert                
         for item, i in zip(l, range(1,6)):
             self.assertEqual(item, i)
 

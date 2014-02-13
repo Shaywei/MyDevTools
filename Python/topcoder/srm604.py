@@ -74,33 +74,32 @@ Different elements of words may have different lengths.
 from collections import Counter
 
 def are_interesting(word1, word2):
-	print 'checking for: ', word1, word2
-	for i in range(1,len(word1)):
-		print '\t', word1[i:], word1[0:i], word2
-		if word1[i:] + word1[0:i] == word2:
-			print 'Interesting!'
-			return True
-	return False
-		
+    print 'checking for: ', word1, word2
+    for i in range(1,len(word1)):
+        print '\t', word1[i:], word1[0:i], word2
+        if word1[i:] + word1[0:i] == word2:
+            print 'Interesting!'
+            return True
+    return False
+
 class FoxAndWord(object):
-	def howManyPairs(self, words):
-		ans = 0
-		d = dict()
-		for word in words:
-			c = Counter(word)
-			if str(c) not in d.keys():
-				d[str(c)] = [word]
-			else:
-				d[str(c)].append(word)
-		print d
-		for key in d.keys():
-			if len(d[key]) > 1:
-				for i in range(len(d[key])):
-					for j in range(i+1,len(d[key])):
-						if are_interesting(d[key][i], d[key][j]):
-							ans += 1
-		return ans
-				
+    def howManyPairs(self, words):
+        ans = 0
+        d = dict()
+        for word in words:
+            c = Counter(word)
+            if str(c) not in d.keys():
+                d[str(c)] = [word]
+            else:
+                d[str(c)].append(word)
+        print d
+        for key in d.keys():
+            if len(d[key]) > 1:
+                for i in range(len(d[key])):
+                    for j in range(i+1,len(d[key])):
+                        if are_interesting(d[key][i], d[key][j]):
+                            ans += 1
+        return ans
 
 # SRM 604, Div2, II
 
@@ -183,18 +182,18 @@ Returns: "Possible"
 Returns: "Possible"
 '''
 class PowerOfThreeEasy(object):
-	def ableToGet(self, x, y):
-		if x == 0 and y == 0:
-			return 'Possible'
-		else:
-			return self.ableToGetRec(x,y,0)
-		
-	def ableToGetRec(self, x, y, k):
-		ttk = pow(3,k)
-		if (x - ttk == 0 and y == 0) or (x == 0 and y - ttk == 0):
-			return 'Possible'
-		elif x < 0 or y < 0 or (x - ttk < 0 and y - ttk < 0):
-			return 'Impossible'
-		else:
-			ans = 'Possible' if self.ableToGetRec(x - ttk, y, k+1) == 'Possible' or self.ableToGetRec(x, y - ttk, k + 1) == 'Possible' else 'Impossible'
-			return ans
+    def ableToGet(self, x, y):
+        if x == 0 and y == 0:
+            return 'Possible'
+        else:
+            return self.ableToGetRec(x,y,0)
+
+    def ableToGetRec(self, x, y, k):
+        ttk = pow(3,k)
+        if (x - ttk == 0 and y == 0) or (x == 0 and y - ttk == 0):
+            return 'Possible'
+        elif x < 0 or y < 0 or (x - ttk < 0 and y - ttk < 0):
+            return 'Impossible'
+        else:
+            ans = 'Possible' if self.ableToGetRec(x - ttk, y, k+1) == 'Possible' or self.ableToGetRec(x, y - ttk, k + 1) == 'Possible' else 'Impossible'
+            return ans

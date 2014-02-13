@@ -68,21 +68,21 @@ Returns: 1
 Returns: 27
 '''
 class WinterAndMandarins(object):
-	def getNumber(self, bags, K):
-		if K in (0,1):
-			return 0
-			
-		ans = 1000001 # infinity
-		
-		bags = sorted(bags)
-		
-		for i in range(len(bags) - K + 1):
-			sliding_window = bags[i:i+K]
-			print sliding_window
-			ans = min(ans, sliding_window[-1] - sliding_window[0])
-		
-		return ans
-			
+    def getNumber(self, bags, K):
+        if K in (0,1):
+            return 0
+            
+        ans = 1000001 # infinity
+        
+        bags = sorted(bags)
+        
+        for i in range(len(bags) - K + 1):
+            sliding_window = bags[i:i+K]
+            print sliding_window
+            ans = min(ans, sliding_window[-1] - sliding_window[0])
+        
+        return ans
+            
 
 # Div2 II
 
@@ -162,20 +162,20 @@ Returns: 0
 from collections import Counter
 
 class WinterAndCandies(object):
-	def getNumber(self, type):
+    def getNumber(self, type):
 
-		# check if there is a valid result for K, is so, calculate the number of possible way to get that K.
-		
-		c = Counter(type)
-		
-		dp = [0] * 51 # dp[i] = number of possible solutions for K = i
-		
-		dp[0] = 0
-		dp[1] = c[1]
-		
-		for k in range(2,51):
-			if k not in c.keys():
-				dp[k] = 0
-			else:
-				dp[k] = dp[k-1]*c[k]
-		return sum(dp)
+        # check if there is a valid result for K, is so, calculate the number of possible way to get that K.
+        
+        c = Counter(type)
+        
+        dp = [0] * 51 # dp[i] = number of possible solutions for K = i
+        
+        dp[0] = 0
+        dp[1] = c[1]
+        
+        for k in range(2,51):
+            if k not in c.keys():
+                dp[k] = 0
+            else:
+                dp[k] = dp[k-1]*c[k]
+        return sum(dp)

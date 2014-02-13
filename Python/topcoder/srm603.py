@@ -73,21 +73,21 @@ Returns: "afawadafawafaafsadadaa"
 '''
 
 class MiddleCode(object):
-	def encode(self, s):
-		t = ''
-		s = list(s)
-		while s != []:
-			if len(s) % 2 != 0:
-				t += s.pop(len(s)/2 )
-			else:
-				c1, c2 = s[len(s)/2 - 1], s[len(s)/2]
-				if c1 <= c2:
-					t += s.pop(len(s)/2-1)
-					
-				else:
-					t += s.pop(len(s)/2)		
-			
-		return t
+    def encode(self, s):
+        t = ''
+        s = list(s)
+        while s != []:
+            if len(s) % 2 != 0:
+                t += s.pop(len(s)/2 )
+            else:
+                c1, c2 = s[len(s)/2 - 1], s[len(s)/2]
+                if c1 <= c2:
+                    t += s.pop(len(s)/2-1)
+                    
+                else:
+                    t += s.pop(len(s)/2)        
+            
+        return t
 
 # SRM 603 Div2 II
 '''
@@ -167,22 +167,22 @@ Returns: 1
 Beware overflow.
 '''
 class SplitIntoPairs(object):
-	def makepairs(self, A, X):
-		negs = [x for x in A if x < 0]
-		
-		# If there are an even number of negatives - we won!
-		if len(negs) %2 == 0:
-			return len(A) / 2
-		
+    def makepairs(self, A, X):
+        negs = [x for x in A if x < 0]
+        
+        # If there are an even number of negatives - we won!
+        if len(negs) %2 == 0:
+            return len(A) / 2
+        
 
-		# Lets sort the positives by descending and negs by ascending
-				
-		positives = sorted([x for x in A if x >= 0])
-		negs = sorted(negs)
-		negs.reverse() # ascending
+        # Lets sort the positives by descending and negs by ascending
+                
+        positives = sorted([x for x in A if x >= 0])
+        negs = sorted(negs)
+        negs.reverse() # ascending
 
-		# if we can match two negatives, to two non-negatives - we won!		
-		if negs[0]*positives[0] >= X:
-			return len(A)/2
-		return len(A)/2 - 1
-			
+        # if we can match two negatives, to two non-negatives - we won!        
+        if negs[0]*positives[0] >= X:
+            return len(A)/2
+        return len(A)/2 - 1
+            

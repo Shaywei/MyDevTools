@@ -13,7 +13,6 @@ def _factory(l):
 
 
 class TestBST(unittest.TestCase):
-    
     def _check_node(self, node, item, left_child, right_child):
         self.assertEqual(item, node.item)
         if left_child is None:

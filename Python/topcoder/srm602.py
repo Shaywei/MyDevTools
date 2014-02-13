@@ -61,24 +61,24 @@ Returns: 4
 
 import operator
 class TypoCoderDiv2(object):
-	def count(self, rating):
-		op = operator.ge
-		ans = 0
-		
-		for r in rating:
-			
-			if op(r, 1200):
-				ans += 1	
-				if op == operator.ge:
-					op = operator.lt
-				else:
-					op = operator.ge
-		
-		return ans
+    def count(self, rating):
+        op = operator.ge
+        ans = 0
+        
+        for r in rating:
+            
+            if op(r, 1200):
+                ans += 1    
+                if op == operator.ge:
+                    op = operator.lt
+                else:
+                    op = operator.ge
+        
+        return ans
 
-		
-		
-			
-		
-		
-		
+        
+        
+            
+        
+        
+        
