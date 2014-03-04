@@ -1,10 +1,16 @@
 import unittest
 import random, operator, sys
 
-from heaps import Heap
+from heaps import Heap, mergesort
 
 def _factory(l):
     _h = Heap()
+    for item in l:
+        _h.insert(item)
+    return _h
+
+def _smart_factory(l):
+    _h = SmartHeap()
     for item in l:
         _h.insert(item)
     return _h
@@ -24,7 +30,7 @@ class TestHeap(unittest.TestCase):
 
         # Assert
         self.assertEqual(1, h._heap[0])
-    
+
     def test_extract_root(self):
         # Arrange
         h = Heap()
@@ -42,7 +48,6 @@ class TestHeap(unittest.TestCase):
         self.assertEqual(1, root)
         self.assertEqual(2, h._heap[0])
 
-
     def test__eq__when_equal(self):
         # Arrange
         h1 = _factory([1,2,3])
@@ -59,22 +64,5 @@ class TestHeap(unittest.TestCase):
         #Assert
         self.assertFalse(h1 == h2)
 
-    def test_min_heap_sort(self):
-        seed = random.randint(0, sys.maxint)
-        myRand = random.Random(seed)
-
-        l = [int(10000*myRand.random()) for x in xrange(10000)]
-        l_sorted = Heap.heapsort(l)
-        self.assertEqual(sorted(l), l_sorted)
-
-    def test_max_heap_sort(self):
-        seed = random.randint(0, sys.maxint)
-        myRand = random.Random(seed)
-
-        l = [int(10000*myRand.random()) for x in xrange(10000)]
-        l_sorted = Heap.heapsort(l, operator.gt)
-        self.assertEqual(sorted(l, reverse=True), l_sorted)        
-
 if __name__ == '__main__':
     unittest.main()
-

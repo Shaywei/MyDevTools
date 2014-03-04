@@ -1,22 +1,21 @@
 import operator
 
-class Heap(object):
-    @staticmethod
-    def heapsort(l, comparator=operator.lt):
-        h = Heap(comparator)
-        rng = xrange(len(l))
-        for i in rng:
-            h.insert(l.pop())
-        for i in rng:
-            l.append(h.extract_root())
-        return l
+def heapsort(l, comparator=operator.lt):
+    h = Heap(comparator)
+    rng = xrange(len(l))
+    for i in rng:
+        h.insert(l.pop())
+    for i in rng:
+        l.append(h.extract_root())
+    return l
 
+class Heap(object):
     __slots__ = ['_heap', 'cmp']
 
     def __init__(self, comparator=operator.lt):
         self._heap = list()
         self.cmp = comparator
-        
+
     def insert(self, item):
         i = len(self._heap)
         self._heap.append(item)
@@ -54,8 +53,6 @@ class Heap(object):
     def _bubbledown(self, i):
         young_child, old_child = self._child(i), self._child(i, False)
         item = self._heap[i]
-        #print self._heap
-        #print "bubbling %s down: i=%s young_child=%s old_child=%s" % (item, i, young_child, old_child)
 
         if (young_child is None) or (old_child is None and self.cmp(item, young_child)) or (self.cmp(item, young_child) and self.cmp(item, old_child)):
             return
