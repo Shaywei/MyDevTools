@@ -43,7 +43,7 @@ Returns: 4
 Returns: 20
 '''
 
-class MagicalStringDic2(object):
+class MagicalStringDiv2(object):
     def minimalMoves(self, s):
         c = 0
         mid = len(s) / 2
@@ -286,7 +286,7 @@ Returns: 24
 
 
 
-class MagicalStringDiv2(object):
+class MagicalStringDiv1(object):
     def getLongest(self, s):
         # To remove as little as possible = getting the longest.
         # We need to know what is the longest continous subseries
