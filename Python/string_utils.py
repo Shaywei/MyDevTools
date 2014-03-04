@@ -32,3 +32,18 @@ def parse_properties_from_multiline_string(s):
         key, val = line.strip().split('=', 2)
         propeties[key] = val
     return propeties
+
+def find_subsequance(subseq, s):
+    import re
+    return True if re.search('.*'.join(subseq), s) else False
+
+def find_subsequance_efficient(subseq, s):
+    i = j = 0
+    while i < len(subseq):
+        if j == len(s):
+            return False
+        if subseq[i] == s[j]:
+            i += 1
+            print ('found ', s[j], 'at: ', j)
+        j += 1
+    return True
