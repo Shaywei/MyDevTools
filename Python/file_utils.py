@@ -4,7 +4,7 @@ import sys
 import mock
 import shutil
 import fnmatch
-import string_utils
+from string_utils import parse_properties_from_multiline_string
 
 from time import gmtime, strftime
 START_TIME = strftime("%Y-%m-%d_%H.%M.%S", gmtime())
