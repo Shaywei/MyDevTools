@@ -33,3 +33,26 @@ def mergesort(l, low, high):
         mergesort(l, low, middle)
         mergesort(l, middle+1, high)
         return merge(l, low, middle, high)
+
+def insertion_sort(l):
+    # No need to sort empty list
+    if l == []:
+        return l
+
+    new_l = [l[0]]
+    new_l_len = 0
+
+    for elem in l[1:]:
+        for i in range(new_l_len, -1, -1):
+            if elem >= new_l[i]:
+                new_l.insert(i+1, elem)
+                new_l_len += 1
+                break
+            if i == 0:
+                new_l.insert(0, elem)
+                new_l_len += 1
+
+    return new_l
+
+
+

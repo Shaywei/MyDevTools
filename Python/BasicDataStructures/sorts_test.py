@@ -1,9 +1,10 @@
 import unittest
 import random, operator, sys
 
-from sorts import mergesort, heapsort
+from sorts import mergesort, heapsort, insertion_sort
 
 class TestSorts(unittest.TestCase):
+
     def test_min_heapsort(self):
         # Arrange
         seed = random.randint(0, sys.maxint)
@@ -40,6 +41,16 @@ class TestSorts(unittest.TestCase):
 
         # Assert
         self.assertEqual(sorted(l), l)
+
+    def test_insertion_sort(self):
+        # Arrange
+        seed = random.randint(0, sys.maxint)
+        myRand = random.Random(seed)
+        r = 5000
+        l = [int(r*myRand.random()) for x in xrange(r)]
+
+        # Act + Assert
+        self.assertEqual(sorted(l), insertion_sort(l))
 
 if __name__ == '__main__':
     unittest.main()
