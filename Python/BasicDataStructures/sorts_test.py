@@ -1,10 +1,9 @@
 import unittest
 import random, operator, sys
 
-from sorts import mergesort, heapsort, insertion_sort
+from sorts import heapsort, mergesort, insertion_sort, quicksort, quicksort_inplace
 
 class TestSorts(unittest.TestCase):
-
     def test_min_heapsort(self):
         # Arrange
         seed = random.randint(0, sys.maxint)
@@ -51,6 +50,29 @@ class TestSorts(unittest.TestCase):
 
         # Act + Assert
         self.assertEqual(sorted(l), insertion_sort(l))
+
+    def test_quicksort(self):
+        # Arrange
+        seed = random.randint(0, sys.maxint)
+        myRand = random.Random(seed)
+        r = 100000
+        l = [int(r*myRand.random()) for x in xrange(r)]
+
+        # Act + Assert
+        self.assertEqual(sorted(l), quicksort(l))
+
+    def test_quicksort_inplace(self):
+        # Arrange
+        seed = random.randint(0, sys.maxint)
+        myRand = random.Random(seed)
+        r = 100000
+        l = [int(r*myRand.random()) for x in xrange(r)]
+
+        # Act
+        quicksort_inplace(l)
+
+        # Assert
+        self.assertEqual(sorted(l), l)
 
 if __name__ == '__main__':
     unittest.main()

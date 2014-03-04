@@ -1,3 +1,4 @@
+import random
 from heaps import heapsort
 
 def mergesort(l, low, high):
@@ -53,6 +54,51 @@ def insertion_sort(l):
                 new_l_len += 1
 
     return new_l
+
+def quicksort(l):
+    if len(l) <= 1:
+        return l
+
+    pivot_index = random.randint(0, len(l)-1)
+    pivot = l.pop(pivot_index)
+    lte_pivot = []
+    gt_pivot = []
+
+    for elem in l:
+        if elem <= pivot:
+            lte_pivot.append(elem)
+        else:
+            gt_pivot.append(elem)
+
+    return quicksort(lte_pivot) + [pivot] + quicksort(gt_pivot)
+
+def quicksort_inplace(l, left=None, right=None):
+    def partition(l, left, right, pivot_index):
+        '''
+            left is the index of the leftmost element of the subarray
+            right is the index of the rightmost element of the subarray (inclusive)
+            number of elements in subarray = right-left+1
+        '''
+        pivot_value = l[pivot_index]
+        l[pivot_index], l[right] = l[right], l[pivot_index] # more pivot to end
+        store_index = left
+        for i in range(left, right):
+            if l[i] <= pivot_value:
+                l[i], l[store_index] = l[store_index], l[i]
+                store_index += 1
+        l[right], l[store_index] = l[store_index], l[right] # move pivot to its final place
+        return store_index
+
+    # in-place quicksort
+    if left is None:
+        left = 0
+        right = len(l)-1
+
+    if left < right:
+        pivot_index = random.randint(left, right-1)
+        pivot_new_index = partition(l, left, right, pivot_index)
+        quicksort_inplace(l, left, pivot_new_index-1)
+        quicksort_inplace(l, pivot_new_index+1, right)
 
 
 
