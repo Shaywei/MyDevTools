@@ -28,7 +28,7 @@ matrix=[[5, 10, 15, 20, 25],
 Bonus points for fewer characters of code.
 '''
 
-def martrix_rotate(m, d=''):
+def martrix_rotate(m, d):
     n=len(m)
     c=[[None]*n for i in range(n)]
     for i,r in enumerate(reversed(m)):
