@@ -1,7 +1,15 @@
-def is_palindrome(self,s):
+import string
+
+def is_palindrome(s, ignore_case=True, ignore_spaces=True):
+    if ignore_case:
+        s = s.lower()
+
+    if ignore_spaces:
+        s = s.replace(' ', '')
+
     return s == s[::-1]
 
-def all_substrings(self, S):
+def all_substrings(S):
     substrings = set()
     for i in xrange(len(S)):
         for j in xrange(i+1, len(S)+1):
@@ -10,7 +18,7 @@ def all_substrings(self, S):
     #print l
     return substrings
 
-def count_occurrences_with_overlap(self, string, sub):
+def count_occurrences_with_overlap(string, sub):
     count = start = 0
     while True:
         start = string.find(sub, start) + 1
@@ -50,3 +58,9 @@ def find_subsequance_efficient(subseq, s):
 
 def camel_case(s):
     return ' '.join([word[0].upper()+word[1:] for word in s.split(' ')])
+
+def turn_to_valid_filename(s, accept_as_valid=''):
+    valid_chars = "-_. %s%s" % (string.ascii_letters, string.digits) + accept_as_valid
+    return ''.join(c for c in s if c in valid_chars)
+
+
