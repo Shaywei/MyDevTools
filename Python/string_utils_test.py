@@ -44,6 +44,16 @@ class TestFileParsers(unittest.TestCase):
         self.assertEqual(2, string_utils.count_occurrences_with_overlap('aaa', 'aa'))
 
 
+    def test_camelcase(self):
+        self.assertEqual('A Game Of Thrones', string_utils.camelcase('a game of thrones'))
+
+    def test_camelcase_with_exceptions(self):
+        self.assertEqual('A Game of Thrones', string_utils.camelcase('a game of thrones', exceptions=['of']))
+
+    def test_camelcase_with_exceptions_first_word_is_still_capitalized(self):
+        self.assertEqual('A Game of a Thrones', string_utils.camelcase('a game of a thrones', exceptions=['a', 'of']))
+
+
     def test_turn_to_valid_filename(self):
         non_valid_filename = 'this_is-a n!@#$%^&*on() valid filename.ext'
         self.assertEqual('this_is-a non valid filename.ext', string_utils.turn_to_valid_filename(non_valid_filename))
@@ -51,8 +61,6 @@ class TestFileParsers(unittest.TestCase):
     def test_turn_to_valid_filename_can_accept_exceptions(self):
         non_valid_filename = 'this_is-a n!@#$%^&*on() valid filename.ext'
         self.assertEqual('this_is-a non() valid filename.ext', string_utils.turn_to_valid_filename(non_valid_filename, accept_as_valid='()'))
-
-
 
 if __name__ == '__main__':
     unittest.main()

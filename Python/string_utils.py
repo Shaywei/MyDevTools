@@ -56,11 +56,9 @@ def find_subsequance_efficient(subseq, s):
         j += 1
     return True
 
-def camel_case(s):
-    return ' '.join([word[0].upper()+word[1:] for word in s.split(' ')])
+def camelcase(s, exceptions=[]):
+    return ' '.join([word[0].upper()+word[1:] if (i == 0 or word not in exceptions) else word for i, word in enumerate(s.split(' '))])
 
 def turn_to_valid_filename(s, accept_as_valid=''):
     valid_chars = "-_. %s%s" % (string.ascii_letters, string.digits) + accept_as_valid
     return ''.join(c for c in s if c in valid_chars)
-
-
