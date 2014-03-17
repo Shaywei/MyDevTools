@@ -173,6 +173,7 @@ class Show(object):
 def get_or_update_show_info(show_name):
     show = Show(show_name)
     show.parse_episodes_list_from_wikipedia()
+    show.update_last_seen_ep()
     show.pickle()
 
 def update_shows(show_names):
@@ -205,13 +206,17 @@ def download_new_episodes(show_names):
         show.download_new_episodes()
 
 if __name__ == '__main__':
-    show_names = ['bob\'s burgers', 'game of thrones', 'How I met your mother', 'The Walking Dead', 'Family Guy', 'South Park', 'Brooklyn Nine-Nine', 'The Big Bang Theory', 'House of Cards']
-    shows = load_shows(show_names)
+    '''
+    Usage: put the show names that you want in show_names.
+           uncomment #update_shows(show_names)
+           by default, on update_shows() the latest_unseen_ep will be synched to the latest aired episode, you can change it later manually with show.update_last_seen_ep(episode_number_in_series)
+           Periodically run the program (crone job?). The loop of at the end (show.download_new_episodes()) will do the rest :)
+           Once you update_shows() there's no need to querry wikipedia over and over, unless a new season starts and the new airdates are published
+    '''
 
+    show_names = ['bob\'s burgers', 'game of thrones', 'How I met your mother', 'The Walking Dead', 'Family Guy', 'South Park', 'Brooklyn Nine-Nine', 'The Big Bang Theory', 'House of Cards']
     #update_shows(show_names)
     #print_episodes(show_names)
-
+    shows = load_shows(show_names)
     for show in shows:
         show.download_new_episodes()
-
-
