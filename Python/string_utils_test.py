@@ -44,6 +44,22 @@ class TestFileParsers(unittest.TestCase):
         self.assertEqual(2, string_utils.count_occurrences_with_overlap('aaa', 'aa'))
 
 
+
+    def test_parse_properties_from_multiline_string(self):
+        expected = {'a':'b', 'c':'4'}
+        self.assertEqual(expected, string_utils.parse_properties_from_multiline_string('a=b\nc=4\n'))
+
+    def test_must_have_at_least_one_equals_per_line(self):
+        expected = {'a':'b', 'c':'4'}
+        with self.assertRaises(ValueError) as cm:
+         string_utils.parse_properties_from_multiline_string('a=b\nc=4\nbla')
+
+    def test_must_not_have_more_than_one_equals_per_line(self):
+        expected = {'a':'b', 'c':'4'}
+        with self.assertRaises(ValueError) as cm:
+         string_utils.parse_properties_from_multiline_string('a=b\nc=4\nkey=val=ue')
+
+
     def test_find_subsequence_returns_true_is_subsequence_exist(self):
         self.assertTrue(string_utils.find_subsequance('f11o22 3 4 o 32590', 'foo'))
 
