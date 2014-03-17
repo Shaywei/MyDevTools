@@ -44,6 +44,20 @@ class TestFileParsers(unittest.TestCase):
         self.assertEqual(2, string_utils.count_occurrences_with_overlap('aaa', 'aa'))
 
 
+    def test_find_subsequence_returns_true_is_subsequence_exist(self):
+        self.assertTrue(string_utils.find_subsequance('f11o22 3 4 o 32590', 'foo'))
+
+    def test_find_subsequence_returns_false_is_subsequence_doesnt_exist(self):
+        self.assertFalse(string_utils.find_subsequance('f11o22 3 4 o 32590', 'bar'))
+
+
+    def test_find_subsequence_efficient_returns_true_is_subsequence_exist(self):
+        self.assertTrue(string_utils.find_subsequance_efficient('f11o22 3 4 o 32590', 'foo'))
+
+    def test_find_subsequence_efficient_returns_false_is_subsequence_doesnt_exist(self):
+        self.assertFalse(string_utils.find_subsequance_efficient('f11o22 3 4 o 32590', 'bar'))
+
+
     def test_camelcase(self):
         self.assertEqual('A Game Of Thrones', string_utils.camelcase('a game of thrones'))
 
