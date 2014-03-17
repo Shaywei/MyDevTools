@@ -44,6 +44,18 @@ class TestFileParsers(unittest.TestCase):
         self.assertEqual(2, string_utils.count_occurrences_with_overlap('aaa', 'aa'))
 
 
+    def test_prefix_replace_pattern_postfix_adds_prefix(self):
+        self.assertEqual('prefix_foo', string_utils.prefix_replace_pattern_postfix('foo', prefix='prefix_'))
+
+    def test_prefix_replace_pattern_postfix_adds_postfix(self):
+        self.assertEqual('foo_postfix', string_utils.prefix_replace_pattern_postfix('foo', postfix='_postfix'))
+
+    def test_prefix_replace_pattern_postfix_changes_pattern(self):
+        self.assertEqual('fOO', string_utils.prefix_replace_pattern_postfix('foo', pattern='o', replacement='O'))
+
+    def test_prefix_replace_pattern_postfix_all_together(self):
+        self.assertEqual('A Game of Thrones', string_utils.prefix_replace_pattern_postfix('Game 123124', prefix='A ', pattern='\d+', replacement='of', postfix=' Thrones'))
+
 
     def test_parse_properties_from_multiline_string(self):
         expected = {'a':'b', 'c':'4'}
