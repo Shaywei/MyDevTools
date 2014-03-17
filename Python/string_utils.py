@@ -47,3 +47,6 @@ def find_subsequance_efficient(subseq, s):
             print ('found ', s[j], 'at: ', j)
         j += 1
     return True
+
+def camel_case(s):
+    return ' '.join([word[0].upper()+word[1:] for word in s.split(' ')])
