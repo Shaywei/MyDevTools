@@ -175,7 +175,9 @@ class Show(object):
             return
         downloadable_episodes = [ep for ep in unseen_episdoes if ep.is_downloadable()]
         if downloadable_episodes == []:
-            print '%s: No new episodes available for download.. next episode %s will be air at: %s\n' % (self.name, unseen_episdoes[0].SiEj, unseen_episdoes[0].original_air_date)
+            next_ep = unseen_episdoes[0]
+            next_ep_date = next_ep.original_air_date
+            print '%s: No new episodes available for download.. next episode (%s) will air in %s days (%s)\n' % (self.name, next_ep.SiEj, (next_ep_date - date.today()).days, next_ep_date)
             return
         for episode in downloadable_episodes:
             search_string = '%s %s' % (self.name, episode.SiEj)
@@ -227,10 +229,9 @@ if __name__ == '__main__':
            Once you update_shows() there's no need to querry wikipedia over and over, unless a new season starts and the new airdates are published
     '''
 
-    show_names = ['bob\'s burgers', 'game of thrones', 'How I met your mother', 'The Walking Dead', 'Family Guy', 'South Park', 'Brooklyn Nine-Nine', 'The Big Bang Theory', 'House of Cards']
-    #show_names = ['Futurama']
-    #update_shows(show_names)
-    #print_episodes(show_names)
+    shows_waiting_for_next_season = ['House of Cards', 'game of thrones', 'South Park']
+    show_names = ['bob\'s burgers', 'How I met your mother', 'The Walking Dead', 'Family Guy', 'Brooklyn Nine-Nine', 'The Big Bang Theory']
+    #update_shows(shows_waiting_for_next_season)
     shows = load_shows(show_names)
     for show in shows:
         show.download_new_episodes()
