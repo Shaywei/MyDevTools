@@ -29,6 +29,7 @@ class Episode(object):
         self.number_in_season = number_in_season
         self.title = title
         self.original_air_date = original_air_date
+        self.SiEj = 'S%sE%s' % (season.zfill(2), number_in_season.zfill(2))
 
     def is_in_future(self):
         return datetime.combine(self.original_air_date, datetime.min.time()) >  datetime.now()
@@ -37,10 +38,16 @@ class Episode(object):
         return datetime.combine(self.original_air_date, datetime.min.time()) + timedelta(days=days_delta_to_be_considered_downloadable) <  datetime.now()
 
     def __str__(self):
-        return 'No.in series: %s, Season: %s No. in season: %s, title: %s, original air date: %s%s' %\
-                (self.number_in_series, str(self.season).zfill(2), str(self.number_in_season).zfill(2), self.title, self.original_air_date, ' (future episode)' if self.is_in_future() else '')
+        return '%s (%s in series), title: %s, original air date: %s%s' %\
+                (self.SiEj, self.number_in_series, self.title, self.original_air_date, ' (future episode)' if self.is_in_future() else '')
 
 class Show(object):
+    '''
+    This class is a huge mess... shouldn't have anything to do with accessing wiki,
+    but I was sick and bored when I wrote it, so I that's my excuse.
+    One day I hope to tidy it up, but for now it works.
+    Terrilbe design though... turn_to_valid_filename
+    '''
     def __init__(self, name, last_seen_ep = None):
         self.name = name
         self.episodes = []
@@ -163,12 +170,18 @@ class Show(object):
 
     def download_new_episodes(self, reparse=False):
         unseen_episdoes = self.episodes[int(self.last_seen_ep.number_in_series):]
-        for episode in unseen_episdoes:
-            if episode.is_downloadable():
-                search_string = '%s S%sE%s' % (self.name, str(episode.season).zfill(2), str(episode.number_in_season).zfill(2))
-                print search_string
-                link = get_magnet_link_from_pirate_bay(search_string)
-                print link
+        if unseen_episdoes == []:
+            print '%s: No more episode... (maybe time to update from wiki (when a new season comes out)?/remove from list of shows?)\n' % (self.name)
+            return
+        downloadable_episodes = [ep for ep in unseen_episdoes if ep.is_downloadable()]
+        if downloadable_episodes == []:
+            print '%s: No new episodes available for download.. next episode %s will be air at: %s\n' % (self.name, unseen_episdoes[0].SiEj, unseen_episdoes[0].original_air_date)
+            return
+        for episode in downloadable_episodes:
+            search_string = '%s %s' % (self.name, episode.SiEj)
+            print search_string
+            link = get_magnet_link_from_pirate_bay(search_string)
+            print link
 
 def get_or_update_show_info(show_name):
     show = Show(show_name)
@@ -215,6 +228,7 @@ if __name__ == '__main__':
     '''
 
     show_names = ['bob\'s burgers', 'game of thrones', 'How I met your mother', 'The Walking Dead', 'Family Guy', 'South Park', 'Brooklyn Nine-Nine', 'The Big Bang Theory', 'House of Cards']
+    #show_names = ['Futurama']
     #update_shows(show_names)
     #print_episodes(show_names)
     shows = load_shows(show_names)
