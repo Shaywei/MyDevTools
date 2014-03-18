@@ -1,9 +1,13 @@
+import os
+import sys
 import pickle
 import urllib2
 import subprocess
 from datetime import datetime, date, timedelta
 
 import string_utils
+
+os.chdir(sys.path[0])
 
 def get_magnet_link_from_pirate_bay(search_string, _cat='TV HD'):
     catagory = {'TV HD':'208', 'MOVIES HD':'207' }[_cat]
@@ -43,10 +47,10 @@ class Episode(object):
 
 class Show(object):
     '''
-    This class is a huge mess... shouldn't have anything to do with accessing wiki,
-    but I was sick and bored when I wrote it, so I that's my excuse.
-    One day I hope to tidy it up, but for now it works.
-    Terrilbe design though... turn_to_valid_filename
+    This class is a huge mess... 
+    Shouldn't have anything to do with accessing wiki, the parsing is all shitty and wrong and the code is generally crap...
+    But I was sick and bored when I wrote it, so I that's my excuse. One day I hope to tidy it up, but for now it works.
+    Terrilbe design though.
     '''
     def __init__(self, name, last_seen_ep = None):
         self.name = name
