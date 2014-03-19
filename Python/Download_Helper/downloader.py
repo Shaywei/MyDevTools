@@ -186,7 +186,6 @@ class Show(object):
             print 'Searching torrent for "%s"..' % (search_string)
             link = get_magnet_link_from_pirate_bay(search_string)
             print 'Got magnet link! Adding to client..'
-            return
             add_to_client(link)
             self.last_seen_ep = episode
         self.pickle()
