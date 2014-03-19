@@ -24,6 +24,7 @@ def get_magnet_link_from_pirate_bay(search_string, _cat='TV HD'):
     return magnet_url_first_result
 
 def add_to_client(magnet_url, binary="transmission-gtk"):
+    print 'Adding: %s to client %s' % (magnet_url, binary)
     subprocess.call([binary, magnet_url])
 
 class Episode(object):
@@ -57,16 +58,13 @@ class Show(object):
         self.episodes = []
         self.last_seen_ep = last_seen_ep
 
-    def last_seen_episode(self, last_seen):
-        self.last_seen_ep = last_seen
-
     def add_episode(self, number_in_series, season, number_in_season, title, original_air_date):
         self.episodes.append(Episode(number_in_series, season, number_in_season, title.strip('"'), original_air_date))
 
     def get_wiki_list_of_episodes_page(self):
         opener = urllib2.build_opener()
         opener.addheaders = [('User-agent', 'Mozilla/5.0')]
-        url = "http://en.wikipedia.org/wiki/List_of_%s_episodes" % (string_utils.camelcase(self.name, exceptions=['of', 'a']).replace(' ', '_'))
+        url = "http://en.wikipedia.org/wiki/List_of_%s_episodes" % (string_utils.camelcase(self.name, exceptions=['of', 'a', 'and']).replace(' ', '_'))
         print 'getting: ' + url
         infile = opener.open(url)
         page = infile.read()
@@ -159,14 +157,14 @@ class Show(object):
         if number_in_series == 'LAST_PUBLISHED':
             for episode in self.episodes[::-1]:
                 if not episode.is_in_future():
-                    print 'updating last_seen_ep to episode: %s' % (episode.number_in_series)
                     self.last_seen_ep = episode
-                    self.pickle()
                     break
         else:
             if type(number_in_series) != type(0):
                 raise 'Must receive integer as argument...'
             self.last_seen_ep = self.episodes[number_in_series - 1]
+        print 'updating last_seen_ep to episode: %s' % (self.last_seen_ep)
+        self.pickle()
 
     def pickle(self):
         with open(string_utils.turn_to_valid_filename(self.name)+'.show', 'w+') as f:
@@ -185,11 +183,16 @@ class Show(object):
             return
         for episode in downloadable_episodes:
             search_string = '%s %s' % (self.name, episode.SiEj)
-            print search_string
+            print 'Searching torrent for "%s"..' % (search_string)
             link = get_magnet_link_from_pirate_bay(search_string)
-            print link
+            print 'Got magnet link! Adding to client..'
+            return
+            add_to_client(link)
+            self.last_seen_ep = episode
+        self.pickle()
 
-def get_or_update_show_info(show_name):
+
+def get_or_update_show_info(show_name, last_seen_ep='LAST_PUBLISHED'):
     show = Show(show_name)
     show.parse_episodes_list_from_wikipedia()
     show.update_last_seen_ep()
@@ -233,9 +236,10 @@ if __name__ == '__main__':
            Once you update_shows() there's no need to querry wikipedia over and over, unless a new season starts and the new airdates are published
     '''
 
-    shows_waiting_for_next_season = ['House of Cards', 'game of thrones', 'South Park']
-    show_names = ['bob\'s burgers', 'How I met your mother', 'The Walking Dead', 'Family Guy', 'Brooklyn Nine-Nine', 'The Big Bang Theory']
-    #update_shows(shows_waiting_for_next_season)
+    #shows_waiting_for_next_season = ['House of Cards', 'game of thrones', 'South Park']
+    show_names = ['bob\'s burgers', 'How I met your mother', 'The Walking Dead', 'Family Guy', 'Brooklyn Nine-Nine', 'The Big Bang Theory', 'Parks and Recreation']
+
+    #get_or_update_show_info('Parks and Recreation')
     shows = load_shows(show_names)
     for show in shows:
         show.download_new_episodes()
