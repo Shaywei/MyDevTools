@@ -1,4 +1,7 @@
 from linked_lists import LinkedList
+
+# To do, add better __str__ and __repr__, add support for max_size
+
 class Queue(object):
     @staticmethod
     def from_list(l):
