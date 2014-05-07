@@ -9,13 +9,13 @@ from string_utils import parse_properties_from_multiline_string
 from time import gmtime, strftime
 START_TIME = strftime("%Y-%m-%d_%H.%M.%S", gmtime())
 
-import log_utils
+#import log_utils
 import xml.etree.ElementTree as ET
 
-file_utils_logger = log_utils.get_logger("file_utils") if 'PYTHON_DEBUG' in os.environ else mock.Mock()
+#file_utils_logger = log_utils.get_logger("file_utils") if 'PYTHON_DEBUG' in os.environ else mock.Mock()
 
 def write_file(output_file_path, file_content):
-    file_utils_logger.debug("Writing file. output_file_path = %s, file_content:\n%s" % (output_file_path, file_content[0:100] if len(file_content) > 100 else file_content))
+    #file_utils_logger.debug("Writing file. output_file_path = %s, file_content:\n%s" % (output_file_path, file_content[0:100] if len(file_content) > 100 else file_content))
 
     dirname = os.path.dirname(output_file_path)
     if not os.path.exists(dirname):
@@ -92,17 +92,10 @@ def find_replace_in_file(file_path, pattern, repl, count=0, backup=True):
         create_backup(file_path)
     write_file(file_path, content)
 
-# until xml_utils:
-
-def get_parent_gav(pom):
-    q = etree.parse(pom)
-    parent = q.find('.//{http://maven.apache.org/POM/4.0.0}parent')
-    if parent is not None:
-        gav = dict()
-        for child in list(parent):
-            gav[child.tag[35:]] = child.text    
-        return gav
-        
+def remove_non_printalbe_characters(file):
+    import string
+    write_file(file, filter(lambda x: x in string.printable, read_file(file)))
+    
 # until time_utils
 def now_strf(format="%Y-%m-%d_%H.%M.%S"):
     from time import gmtime, strftime   
