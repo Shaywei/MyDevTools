@@ -1,3 +1,12 @@
+'''
+A hash table (also hash map) is a data structure used to implement an *associative array*, a structure that can map keys to values. 
+A hash table uses a hash function to compute an index (transforming a key into a _fixed_sized_ construct) into an array of buckets or slots, from which the correct value can be found.
+
+Ideally, the hash function will assign each key to a unique bucket, but this situation is rarely achievable in practice (usually some keys will hash to the same bucket). Instead, most hash table designs assume that hash collisions—different keys that are assigned by the hash function to the same bucket—will occur and must be accommodated in some way.
+
+In a well-dimensioned hash table, the average cost (number of instructions) for each lookup is independent of the number of elements stored in the table. Many hash table designs also allow arbitrary insertions and deletions of key-value pairs, at (amortized[2]) constant average cost per operation.[3][4]
+'''
+
 import itertools
 
 class HashTable(object):

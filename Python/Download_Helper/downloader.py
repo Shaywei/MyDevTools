@@ -48,7 +48,7 @@ class Episode(object):
 
 class Show(object):
     '''
-    This class is a huge mess... 
+    This class is a huge mess...
     Shouldn't have anything to do with accessing wiki, the parsing is all shitty and wrong and the code is generally crap...
     But I was sick and bored when I wrote it, so I that's my excuse. One day I hope to tidy it up, but for now it works.
     Terrilbe design though.
@@ -182,13 +182,16 @@ class Show(object):
             print '%s: No new episodes available for download.. next episode (%s) will air in %s days (%s)\n' % (self.name, next_ep.SiEj, (next_ep_date - date.today()).days, next_ep_date)
             return
         for episode in downloadable_episodes:
-            search_string = '%s %s' % (self.name, episode.SiEj)
+            search_string = '%s %s' % (self.name.replace("'", ""), episode.SiEj)
             print 'Searching torrent for "%s"..' % (search_string)
-            link = get_magnet_link_from_pirate_bay(search_string)
-            print 'Got magnet link! Adding to client..'
-            add_to_client(link)
-            self.last_seen_ep = episode
-        self.pickle()
+            try:
+                link = get_magnet_link_from_pirate_bay(search_string)
+                print 'Got magnet link! Adding to client..'
+                self.last_seen_ep = episode
+                self.pickle()
+                add_to_client(link)
+            except:
+                print "Coundn't get magnet url... =\\"
 
 
 def get_or_update_show_info(show_name, last_seen_ep='LAST_PUBLISHED'):
@@ -235,10 +238,10 @@ if __name__ == '__main__':
            Once you update_shows() there's no need to querry wikipedia over and over, unless a new season starts and the new airdates are published
     '''
 
-    #shows_waiting_for_next_season = ['House of Cards', 'game of thrones', 'South Park']
-    show_names = ['bob\'s burgers', 'How I met your mother', 'The Walking Dead', 'Family Guy', 'Brooklyn Nine-Nine', 'The Big Bang Theory', 'Parks and Recreation']
-
-    #get_or_update_show_info('Parks and Recreation')
+    #shows_waiting_for_next_season = ['House of Cards', 'bob\'s burgers', 'The Walking Dead', 'Family Guy', 'Brooklyn Nine-Nine', 'South Park']
+    show_names = ['The Big Bang Theory', 'Parks and Recreation', 'game of thrones']
+    # Wentworth, Orange is the New Black
+    #get_or_update_show_info('South Park')
     shows = load_shows(show_names)
     for show in shows:
         show.download_new_episodes()

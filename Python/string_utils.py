@@ -1,3 +1,4 @@
+import re
 import string
 
 def is_palindrome(s, ignore_case=True, ignore_spaces=True):
@@ -41,18 +42,17 @@ def parse_properties_from_multiline_string(s):
         propeties[key] = val
     return propeties
 
-def find_subsequance(subseq, s):
+def find_subsequance(s, subseq):
     import re
     return True if re.search('.*'.join(subseq), s) else False
 
-def find_subsequance_efficient(subseq, s):
+def find_subsequance_efficient(s, subseq):
     i = j = 0
     while i < len(subseq):
         if j == len(s):
             return False
         if subseq[i] == s[j]:
             i += 1
-            print ('found ', s[j], 'at: ', j)
         j += 1
     return True
 

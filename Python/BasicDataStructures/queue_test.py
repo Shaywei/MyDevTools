@@ -20,7 +20,7 @@ class TestQueue(unittest.TestCase):
         self.assertEqual(1, len(q))
         self.assertEqual('a', q.pop())
         self.assertEqual(0, len(q))
-        
+
     def test_push_pop_three_element(self):
         # Arrange
         q = Queue()
@@ -34,6 +34,26 @@ class TestQueue(unittest.TestCase):
         self.assertEqual(3, len(q))
         self.assertEqual('a', q.pop())
         self.assertEqual(2, len(q))
+
+    def test_push_complex(self):
+        # Arrange
+        q = Queue()
+
+        # Act
+        q.push('a')
+        q.push('b')
+        q.push('c')
+        q.pop()
+        q.pop()
+        q.pop()
+        q.push('d')
+        q.push('e')
+
+        # Assert
+        self.assertEqual(2, len(q))
+        self.assertEqual('d', q.pop())
+        self.assertEqual('e', q.pop())
+        self.assertEqual(0, len(q))
 
     def test_pop_on_empty_queue_raises_ValueError(self):
         # Arrange
@@ -75,7 +95,7 @@ class TestQueue(unittest.TestCase):
         # Arrange
         q = _factory([1,2,3,4,5])
 
-        # Act + Assert                
+        # Act + Assert
         for item, i in zip(q, range(1,6)):
             self.assertEqual(item, i)
 

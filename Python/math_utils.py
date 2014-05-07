@@ -4,7 +4,7 @@ from itertools import chain, combinations
 def factor_to_primes(n):
     primfac = []
     d = 2
-    while d*d <= n:
+    while d*d <= n:            # This is like d < square_root(n)
         while (n % d) == 0:
             primfac.append(d)  # supposing you want multiple factors repeated
             n /= d

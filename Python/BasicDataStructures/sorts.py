@@ -75,12 +75,14 @@ def quicksort(l):
 def quicksort_inplace(l, left=None, right=None):
     def partition(l, left, right, pivot_index):
         '''
+            After running the list will have the pivot in its place for sorting, only greater elements to its right.
+
             left is the index of the leftmost element of the subarray
             right is the index of the rightmost element of the subarray (inclusive)
             number of elements in subarray = right-left+1
         '''
         pivot_value = l[pivot_index]
-        l[pivot_index], l[right] = l[right], l[pivot_index] # more pivot to end
+        l[pivot_index], l[right] = l[right], l[pivot_index] # move pivot to end
         store_index = left
         for i in range(left, right):
             if l[i] <= pivot_value:
