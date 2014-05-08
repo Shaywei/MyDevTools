@@ -1,0 +1,85 @@
+Is the on-site going to be in the same place as my future workplace?
+(Can the on-site interview be a day after I land (Australia is 25 hours flight) and can the return flight be a few days after the interview?)
+
+How did I do in the interviews? Is there anything I should improve on?
+Statistics regarding the
+
+Is the acceptance process based on on-site alone? (Nope)
+
+Will I know what each of the on-site interviews will cover?
+Will I be asked to write code in specific languages? Which?
+
+(Non-abstract large system design)
+(2 Coding interviews)
+
+Tips:
+Sleep well, eat & drink, bla bla..
+Interviews are independent.
+Writing top left on the whiteboard (Thin pens)
+Avoid assumptions in interviews (ask clarifying questions, the more dialog the better, comment about your thought process)
+
+Ali
+
+Two design, coding and algorithms interviews.
+
+Troubleshooting interview - Debugging / or "Web page is running slowly, what do you do?"
+
+Large scale system design: Conversation about the important parts of the system.
+Possible solutions and tradeoffs.
+
+5th Interview - my choice.
+
+Coding interviews:
+Clarifying questions, check constraints, don't assume.
+Talk out loud about solutions and tradeoff you think about.
+Justify your solution: "I'm choosing this solution for this reason."
+Don't start with bruteforce and not the most efficient one.
+Thin whiteboard markers.
+
+
+Troubleshooting interview:
+Two variations on:
+"What type of things would you monitor on a  webservice"
+"A webpage/site/service is running slow or freezing"
+Ask clarifying questions:
+    Is the problem reproducible / consistent?
+    What architecture?
+Be mothodical:
+    What's a server and what all the things you can check on servers, then move on to databases etc'.
+
+System design interview (design Twitter):
+    ~10 minutes time spend clarifying questions (how many users, what kind of use is being made with the system, how long the messages are stored, how long are messages) - get as many real numbers.
+    Ask about SLAs
+
+    High level talk of what pieces would comprise the system
+
+    Drill down:
+        derive RAM, Storage, CPU, Networking needs.
+
+    Talk about what can go wrong and how does the design work and the system operates.
+
+    Don't go into a big amount of drawing, just a few boxes/lines.
+
+
+Cooldown:
+~12 months, Only if the person has done something new.
+
+
+Dublin
+Chubby, vtable, map-reduce, Collosus,
+Google search work
+
+London:
+Privacy
+Calander
+Drive
+Android
+Adds
+
+Zurich:
+Cloud
+
+
+
+
+
