@@ -2,7 +2,8 @@
 
 import json
 import urllib3
-from file_utils import return_valid_filename
+import urllib
+
 PUT_METHOD = 'PUT'
 GET_METHOD = 'GET'
 POST_METHOD = 'POST'
@@ -70,3 +71,6 @@ class RequestsManager(object):
 
     def _generate_headers(self, headers):
         return  dict(self.default_headers.items() + headers.items())
+
+def download_url(url):
+    return urllib.urlopen(url).read()

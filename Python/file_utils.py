@@ -14,12 +14,13 @@ import xml.etree.ElementTree as ET
 
 #file_utils_logger = log_utils.get_logger("file_utils") if 'PYTHON_DEBUG' in os.environ else mock.Mock()
 
-def write_file(output_file_path, file_content):
-    #file_utils_logger.debug("Writing file. output_file_path = %s, file_content:\n%s" % (output_file_path, file_content[0:100] if len(file_content) > 100 else file_content))
-
-    dirname = os.path.dirname(output_file_path)
+def create_dir(dirname):
     if not os.path.exists(dirname):
         os.makedirs(dirname)
+
+def write_file(output_file_path, file_content):
+    #file_utils_logger.debug("Writing file. output_file_path = %s, file_content:\n%s" % (output_file_path, file_content[0:100] if len(file_content) > 100 else file_content))
+    create_dir(dirname=os.path.dirname(output_file_path))
 
     with open(output_file_path, 'wb') as out:
         if file_content is not None:
@@ -35,7 +36,7 @@ def find_files_rec(src, pattern):
 
 def read_file(file_path):
     if not os.path.exists(file_path):
-        file_utils_logger.error("FILE DOES NOT EXIST. file_path=%s", (file_path))
+        #file_utils_logger.error("FILE DOES NOT EXIST. file_path=%s", (file_path))
         return None
     with open(file_path) as a_file:
         return a_file.read()

@@ -16,7 +16,6 @@ def all_substrings(S):
         for j in xrange(i+1, len(S)+1):
             substrings.add(S[i:j])
     l = list(substrings)
-    #print l
     return substrings
 
 def count_occurrences_with_overlap(string, sub):
@@ -55,6 +54,14 @@ def find_subsequance_efficient(s, subseq):
             i += 1
         j += 1
     return True
+
+def find_element_between_substrings(full_string, first_substring, end_substring):
+    start_index = full_string.find(first_substring)
+    if start_index != -1:
+        start_index = start_index + len(first_substring)
+        end_index = full_string.find(end_substring, start_index)
+        if end_index != -1:
+            return full_string[start_index:end_index]
 
 def camelcase(s, exceptions=[]):
     return ' '.join([word[0].upper()+word[1:] if (i == 0 or word not in exceptions) else word for i, word in enumerate(s.split(' '))])

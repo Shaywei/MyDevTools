@@ -43,6 +43,8 @@ class TestFileParsers(unittest.TestCase):
         # and sometimes we need with overlaps:
         self.assertEqual(2, string_utils.count_occurrences_with_overlap('aaa', 'aa'))
 
+    def test_find_element_between_substrings(self):
+        self.assertEqual("_the_answer", string_utils.find_element_between_substrings("bla_bla_foo_the_answer_bar_baz", "foo", "_bar"))
 
     def test_prefix_replace_pattern_postfix_adds_prefix(self):
         self.assertEqual('prefix_foo', string_utils.prefix_replace_pattern_postfix('foo', prefix='prefix_'))
@@ -55,7 +57,6 @@ class TestFileParsers(unittest.TestCase):
 
     def test_prefix_replace_pattern_postfix_all_together(self):
         self.assertEqual('A Game of Thrones', string_utils.prefix_replace_pattern_postfix('Game 123124', prefix='A ', pattern='\d+', replacement='of', postfix=' Thrones'))
-
 
     def test_parse_properties_from_multiline_string(self):
         expected = {'a':'b', 'c':'4'}
